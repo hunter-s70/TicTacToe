@@ -13,8 +13,8 @@ app.directive('ticTac', function() {
         restrict : "E",
         templateUrl : 'template/field.html',
         link     : function (scope, element, attrs) {
-            scope.step = function () {
-                alert('step');
+            scope.makeStep = function () {
+                console.log(element);
             }
         }
     }
