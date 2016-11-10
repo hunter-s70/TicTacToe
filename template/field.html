@@ -1,5 +1,5 @@
 <table class="b-field">
     <tr ng-repeat="row in rows">
-        <td class="b-field__cell" ng-repeat="col in cols" ng-click="makeStep();"></td>
+        <td class="b-field__cell" ng-repeat="col in cols" ng-click="makeStep(row, col)">{{step}}</td>
     </tr>
 </table>
