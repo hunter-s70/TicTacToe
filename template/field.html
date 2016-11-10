@@ -1,17 +1,5 @@
-<table class="b-field" ng-click="makeStep();">
-    <tr>
-        <td class="b-field__cell"></td>
-        <td class="b-field__cell"></td>
-        <td class="b-field__cell"></td>
-    </tr>
-    <tr>
-        <td class="b-field__cell"></td>
-        <td class="b-field__cell"></td>
-        <td class="b-field__cell"></td>
-    </tr>
-    <tr>
-        <td class="b-field__cell"></td>
-        <td class="b-field__cell"></td>
-        <td class="b-field__cell"></td>
+<table class="b-field">
+    <tr ng-repeat="row in rows">
+        <td class="b-field__cell" ng-repeat="col in cols" ng-click="makeStep();"></td>
     </tr>
 </table>
