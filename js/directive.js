@@ -26,7 +26,10 @@ app.directive('ticTac', function() {
             };
 
             scope.setCell = function (row, column, value) {
-                scope.board[row][column] = value;
+                if (!scope.board[row][column]) {
+                    scope.board[row][column] = value;
+                    console.log(scope.board[row][column]);
+                }
             }
         }
     }
