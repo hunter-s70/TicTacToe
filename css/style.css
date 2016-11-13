@@ -13,11 +13,11 @@
     font-size: 50px;
 }
 
-.b-field-row:first-child .b-field__cell {
+.b-field__row:first-child .b-field__cell {
     border-top: none;
 }
 
-.b-field-row:last-child .b-field__cell {
+.b-field__row:last-child .b-field__cell {
     border-bottom: none;
 }
 
