@@ -13,7 +13,7 @@ app.directive('ticTac', function() {
                 }
 
                 scope.setCell(row, col, scope.value);
-                console.log(row, col);
+                scope.isWinner();
             };
 
             scope.viewStep = function (row, col) {
@@ -25,12 +25,11 @@ app.directive('ticTac', function() {
                 return scope.board[row][col];
             };
 
-            scope.setCell = function (row, column, value) {
-                if (!scope.board[row][column]) {
-                    scope.board[row][column] = value;
-                    console.log(scope.board[row][column]);
+            scope.setCell = function (row, col, value) {
+                if (!scope.board[row][col]) {
+                    scope.board[row][col] = value;
                 }
-            }
+            };
         }
     }
 });
