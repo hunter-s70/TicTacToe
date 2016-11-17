@@ -11,18 +11,25 @@ app.controller('TicTacCtrl', function($scope) {
     };
 
     $scope.isWinner = function () {
-        $scope.scoreCount = {};
+        $scope.countRowScore = {};
+        $scope.countColScore = {};
 
         for (var row in $scope.board) {
-            $scope.scoreCount[row] = 0;
+            $scope.countRowScore[row] = 0;
 
             for (var col in $scope.board[row]) {
-                if ($scope.board[row][col] !== null) {
-                    $scope.scoreCount[row] = +col + $scope.scoreCount[row];
+                $scope.countColScore[col] = 0;
+
+                if ($scope.board[row][col] !== null  && $scope.board[row][col] !== $scope.currentPlayer) {
+                    $scope.countRowScore[row] = +col + $scope.countRowScore[row];
+                    $scope.countColScore[col] = +col + $scope.countColScore[col];
+                }
+                if ($scope.countRowScore[row] === 6) {
+                    alert('win');
                 }
             }
-
+            console.log($scope.countColScore);
         }
-        console.log($scope.scoreCount);
+        console.log($scope.countRowScore);
     };
 });

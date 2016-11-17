@@ -5,14 +5,13 @@ app.directive('ticTac', function() {
         link     : function (scope, element, attrs) {
             scope.makeStep = function (row, col) {
                 if (scope.currentPlayer === scope.pl1) {
-                    scope.value = scope.pl1;
+                    scope.setCell(row, col, scope.currentPlayer);
                     scope.currentPlayer = scope.pl2;
                 } else {
-                    scope.value = scope.pl2;
+                    scope.setCell(row, col, scope.currentPlayer);
                     scope.currentPlayer = scope.pl1;
                 }
 
-                scope.setCell(row, col, scope.value);
                 scope.isWinner();
             };
 
