@@ -17,6 +17,8 @@ app.controller('TicTacCtrl', function($scope) {
     };
 
     $scope.isWinner = function () {
+        $scope.diagonalSumm = 0;
+        $scope.diagonalSummReflect = 0;
         $scope.countRowScore = {};
         $scope.countColScore = {};
         $scope.colScoreSumm = {};
@@ -64,8 +66,15 @@ app.controller('TicTacCtrl', function($scope) {
             }
         }
 
-//        console.log($scope.countColScore);
-        console.log($scope.colScoreSumm);
-//        console.log($scope.countRowScore);
+        //check diagonals
+        for (var row in $scope.countColScore) {
+            $scope.diagonalSumm += $scope.countColScore[row][row];
+            $scope.diagonalSummReflect += $scope.countColScore[row][4-row];
+        }
+
+        //check if player have 6 points in diagonal
+        if ($scope.diagonalSumm === 6 || $scope.diagonalSummReflect === 6) {
+            alert('win');
+        }
     };
 });
