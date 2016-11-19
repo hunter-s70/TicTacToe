@@ -44,15 +44,12 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
 
                 //if player have 6 score in row
                 if ($scope.countRowScore[row] === 6) {
-                    $scope.alertWinner($scope.currentPlayer);
+                    $scope.alertResult($scope.currentPlayer);
                 }
 
                 //if all cells is full
                 if ($scope.board[row][col] !== null) {
                     $scope.fullCellCount++;
-                    if ($scope.fullCellCount === 9) {
-                        alert('new game');
-                    }
                 }
             }
         }
@@ -66,7 +63,7 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
 
             //check if player have
             if ($scope.colScoreSumm[row] === row*3) {
-                $scope.alertWinner($scope.currentPlayer);
+                $scope.alertResult($scope.currentPlayer);
             }
         }
 
@@ -78,7 +75,11 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
 
         //check if player have 6 points in diagonal
         if ($scope.diagonalSumm === 6 || $scope.diagonalSummReflect === 6) {
-            $scope.alertWinner($scope.currentPlayer);
+            $scope.alertResult($scope.currentPlayer);
+        }
+
+        if ($scope.fullCellCount === 9) {
+            $scope.alertResult();
         }
 
         //togpe player
@@ -89,12 +90,17 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
         }
     };
 
-    $scope.alertWinner = function (winner) {
-        swal(winner.toUpperCase() + ' winner!');
+    $scope.alertResult = function (winner) {
+        if (winner) {
+            swal(winner.toUpperCase() + ' winner!');
+        } else {
+            swal('draws');
+        }
         $scope.clearBoard();
     };
 
     $scope.clearBoard = function () {
+        $scope.fullCellCount = 0;
         $scope.currentPlayer = $scope.pl2;
         for (var row in $scope.board) {
             for (var col in $scope.board[row]) {
