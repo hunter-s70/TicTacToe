@@ -4,6 +4,10 @@
 //  1 | 2 | 3
 // ---|---|---
 //  1 | 2 | 3
+// -----------------------------------------------
+//if player put value in first column  ---> 1 point
+//if player put value in second column ---> 2 point
+//if player put value in third column  ---> 3 point
 app.controller('TicTacCtrl', function($scope) {
     $scope.pl1 = 'x';
     $scope.pl2 = '​o';
@@ -24,9 +28,6 @@ app.controller('TicTacCtrl', function($scope) {
         $scope.colScoreSumm = {};
 
         //loop for count row score
-        //if player put value in first column  --> 1 point
-        //if player put value in second column --> 2 point
-        //if player put value in third column  --> 3 point
         for (var row in $scope.board) {
             $scope.countColScore[row] = {};
             $scope.countRowScore[row] = 0;
@@ -42,15 +43,12 @@ app.controller('TicTacCtrl', function($scope) {
 
                 //if player have 6 score in row
                 if ($scope.countRowScore[row] === 6) {
-                    swal('Any fool can use a computer');
+                    $scope.alertWinner($scope.currentPlayer);
                 }
             }
         }
 
         //count points in columns
-        //if player put value in first column  --> 1 point
-        //if player put value in second column --> 2 point
-        //if player put value in third column  --> 3 point
         for (var row in $scope.countColScore) {
             $scope.colScoreSumm[row] = 0;
             for (var col in $scope.countColScore[row]) {
@@ -58,11 +56,8 @@ app.controller('TicTacCtrl', function($scope) {
             }
 
             //check if player have
-            // 3 points in first column
-            // 6 points in second column
-            // 9 points in third column
             if ($scope.colScoreSumm[row] === row*3) {
-                alert('win');
+                $scope.alertWinner($scope.currentPlayer);
             }
         }
 
@@ -74,12 +69,20 @@ app.controller('TicTacCtrl', function($scope) {
 
         //check if player have 6 points in diagonal
         if ($scope.diagonalSumm === 6 || $scope.diagonalSummReflect === 6) {
-            alert('win');
+            $scope.alertWinner($scope.currentPlayer);
         }
     };
-});
 
-var elem = document.querySelector('.btn');
-elem.addEventListener('click', function() {
-    swal('Any fool can use a computer');
+    $scope.alertWinner = function (winner) {
+        swal(winner.toUpperCase() + ' lose!');
+        $scope.clearBoard();
+    };
+
+    $scope.clearBoard = function () {
+        for (var row in $scope.board) {
+            for (var col in $scope.board[row]) {
+                $scope.board[row][col] = null;
+            }
+        }
+    };
 });
