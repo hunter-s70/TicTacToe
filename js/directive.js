@@ -3,15 +3,9 @@ app.directive('ticTac', function() {
         restrict : "E",
         templateUrl : 'template/field.html',
         link     : function (scope, element, attrs) {
-            scope.makeStep = function (row, col) {
-                if (scope.currentPlayer === scope.pl1) {
-                    scope.setCell(row, col, scope.currentPlayer);
-                    scope.currentPlayer = scope.pl2;
-                } else {
-                    scope.setCell(row, col, scope.currentPlayer);
-                    scope.currentPlayer = scope.pl1;
-                }
 
+            scope.makeStep = function (row, col) {
+                scope.setCell(row, col, scope.currentPlayer);
                 scope.isWinner();
             };
 
