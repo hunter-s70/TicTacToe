@@ -54,28 +54,20 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
             }
         }
 
-        //count points in columns
+        //count points in columns and diagonals
         for (var row in $scope.countColScore) {
             $scope.colScoreSumm[row] = 0;
+            $scope.diagonalSumm += $scope.countColScore[row][row];
+            $scope.diagonalSummReflect += $scope.countColScore[row][4-row];
+
             for (var col in $scope.countColScore[row]) {
                 $scope.colScoreSumm[row] += $scope.countColScore[col][row];
             }
 
             //check if player have
-            if ($scope.colScoreSumm[row] === row*3) {
+            if ($scope.colScoreSumm[row] === row*3 || $scope.diagonalSumm === 6 || $scope.diagonalSummReflect === 6) {
                 $scope.alertResult($scope.currentPlayer);
             }
-        }
-
-        //check diagonals
-        for (var row in $scope.countColScore) {
-            $scope.diagonalSumm += $scope.countColScore[row][row];
-            $scope.diagonalSummReflect += $scope.countColScore[row][4-row];
-        }
-
-        //check if player have 6 points in diagonal
-        if ($scope.diagonalSumm === 6 || $scope.diagonalSummReflect === 6) {
-            $scope.alertResult($scope.currentPlayer);
         }
 
         if ($scope.fullCellCount === 9) {
