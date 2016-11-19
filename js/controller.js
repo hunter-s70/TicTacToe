@@ -42,7 +42,7 @@ app.controller('TicTacCtrl', function($scope) {
 
                 //if player have 6 score in row
                 if ($scope.countRowScore[row] === 6) {
-                    alert('win');
+                    swal('Any fool can use a computer');
                 }
             }
         }
@@ -77,4 +77,9 @@ app.controller('TicTacCtrl', function($scope) {
             alert('win');
         }
     };
+});
+
+var elem = document.querySelector('.btn');
+elem.addEventListener('click', function() {
+    swal('Any fool can use a computer');
 });
