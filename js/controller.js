@@ -59,7 +59,6 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
             $scope.colScoreSumm[row] = 0;
             $scope.diagonalSumm += $scope.countColScore[row][row];
             $scope.diagonalSummReflect += $scope.countColScore[row][4-row];
-
             for (var col in $scope.countColScore[row]) {
                 $scope.colScoreSumm[row] += $scope.countColScore[col][row];
             }
@@ -74,7 +73,10 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
             $scope.alertResult();
         }
 
-        //togpe player
+        $scope.togglePlayer();
+    };
+
+    $scope.togglePlayer = function () {
         if ($scope.currentPlayer === $scope.pl1) {
             $scope.currentPlayer = $scope.pl2;
         } else {
@@ -92,8 +94,8 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
     };
 
     $scope.clearBoard = function () {
+        $scope.togglePlayer();
         $scope.fullCellCount = 0;
-        $scope.currentPlayer = $scope.pl2;
         for (var row in $scope.board) {
             for (var col in $scope.board[row]) {
                 $scope.board[row][col] = null;
