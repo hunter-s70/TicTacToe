@@ -9,8 +9,20 @@
 //if player put value in second column ---> 2 point
 //if player put value in third column  ---> 3 point
 app.controller('TicTacCtrl', function($scope, $timeout) {
-    $scope.pl1 = 'x';
-    $scope.pl2 = '​o';
+    $scope.audioEffects = {
+        draws: 'audio/draws.wav',
+        winner: 'audio/winner.wav',
+        player1: 'audio/tiny-1.wav',
+        player2: 'audio/tiny-2.wav'
+    };
+    $scope.pl1 = {
+        simbol: 'x',
+        audio: $scope.audioEffects.player1
+    };
+    $scope.pl2 = {
+        simbol: 'o',
+        audio: $scope.audioEffects.player2
+    };
     $scope.currentPlayer = $scope.pl1;
     $scope.rows = [1, 2, 3];
     $scope.cols = $scope.rows;
@@ -37,14 +49,14 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
                 $scope.countColScore[row][col] = 0;
 
                 //check if player put value on game board
-                if ($scope.board[row][col] !== null  && $scope.board[row][col] === $scope.currentPlayer) {
+                if ($scope.board[row][col] !== null  && $scope.board[row][col] === $scope.currentPlayer.simbol) {
                     $scope.countRowScore[row] = +col + $scope.countRowScore[row];
                     $scope.countColScore[row][col] = +col + $scope.countColScore[row][col];
                 }
 
                 //if player have 6 score in row
                 if ($scope.countRowScore[row] === 6) {
-                    $scope.alertResult($scope.currentPlayer);
+                    $scope.alertResult($scope.currentPlayer.simbol);
                 }
 
                 //if all cells is full
@@ -65,7 +77,7 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
 
             //check if player have
             if ($scope.colScoreSumm[row] === row*3 || $scope.diagonalSumm === 6 || $scope.diagonalSummReflect === 6) {
-                $scope.alertResult($scope.currentPlayer);
+                $scope.alertResult($scope.currentPlayer.simbol);
             }
         }
 
@@ -87,8 +99,14 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
     $scope.alertResult = function (winner) {
         if (winner) {
             swal(winner.toUpperCase() + ' winner!');
+            $timeout(function () {
+                new Audio($scope.audioEffects.winner).play()
+            }, 350);
         } else {
             swal('draws');
+            $timeout(function () {
+                new Audio($scope.audioEffects.draws).play()
+            }, 250);
         }
         $scope.clearBoard();
     };
