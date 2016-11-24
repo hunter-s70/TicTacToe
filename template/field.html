@@ -1,3 +1,9 @@
+<button ng-click="resetGame();">new game</button>
+<button ng-click="makeMute()">mute</button>
+<label>
+    <input type="checkbox">
+    <span>Play with computer</span>
+</label>
 <table class="b-field">
     <tr class="b-field__row" ng-repeat="row in rows">
         <td class="b-field__cell" ng-repeat="col in cols" ng-click="makeStep(row, col);">{{ viewStep(row, col); }}</td>

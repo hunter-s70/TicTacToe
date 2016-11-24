@@ -120,4 +120,9 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
             }
         }
     };
+
+    $scope.resetGame = function () {
+        $scope.currentPlayer = $scope.pl2;
+        $scope.clearBoard();
+    }
 });
