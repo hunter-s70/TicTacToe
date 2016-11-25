@@ -5,8 +5,9 @@ app.directive('ticTac', function() {
         link     : function (scope, element, attrs) {
 
             scope.makeStep = function (row, col) {
-                new Audio(scope.currentPlayer.audio).play();
+                if (scope.getCell(row, col)) return;
                 scope.setCell(row, col, scope.currentPlayer.simbol);
+                scope.playSound(scope.currentPlayer.audio);
                 scope.isWinner();
             };
 

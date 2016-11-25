@@ -57,6 +57,7 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
                 //if player have 6 score in row
                 if ($scope.countRowScore[row] === 6) {
                     $scope.alertResult($scope.currentPlayer.simbol);
+                    return;
                 }
 
                 //if all cells is full
@@ -78,11 +79,13 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
             //check if player have
             if ($scope.colScoreSumm[row] === row*3 || $scope.diagonalSumm === 6 || $scope.diagonalSummReflect === 6) {
                 $scope.alertResult($scope.currentPlayer.simbol);
+                return;
             }
         }
 
         if ($scope.fullCellCount === 9) {
             $scope.alertResult();
+            return;
         }
 
         $scope.togglePlayer();
@@ -100,20 +103,20 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
         if (winner) {
             swal(winner.toUpperCase() + ' winner!');
             $timeout(function () {
-                new Audio($scope.audioEffects.winner).play()
+                $scope.playSound($scope.audioEffects.winner);
             }, 350);
         } else {
             swal('draws');
             $timeout(function () {
-                new Audio($scope.audioEffects.draws).play()
+                $scope.playSound($scope.audioEffects.draws);
             }, 250);
         }
         $scope.clearBoard();
     };
 
     $scope.clearBoard = function () {
-        $scope.togglePlayer();
         $scope.fullCellCount = 0;
+        $scope.currentPlayer = $scope.pl1;
         for (var row in $scope.board) {
             for (var col in $scope.board[row]) {
                 $scope.board[row][col] = null;
@@ -121,8 +124,13 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
         }
     };
 
-    $scope.resetGame = function () {
-        $scope.currentPlayer = $scope.pl2;
-        $scope.clearBoard();
-    }
+    $scope.makeMute = function () {
+        $scope.muteToggle = !$scope.muteToggle;
+    };
+
+    $scope.playSound = function (audioEffect) {
+        $scope.currentAudio = new Audio(audioEffect);
+        $scope.currentAudio.muted = $scope.muteToggle;
+        $scope.currentAudio.play();
+    };
 });
