@@ -1,13 +1,11 @@
 //Points Table
-//  1 | 2 | 3
+//  1 | 1 | 1
 // ---|---|---
-//  1 | 2 | 3
+//  1 | 1 | 1
 // ---|---|---
-//  1 | 2 | 3
+//  1 | 1 | 1
 // -----------------------------------------------
-//if player put value in first column  ---> 1 point
-//if player put value in second column ---> 2 point
-//if player put value in third column  ---> 3 point
+//if player put value in column  ---> 1 point
 app.controller('TicTacCtrl', function($scope, $timeout) {
     $scope.audioEffects = {
         draws: 'audio/draws.wav',
@@ -24,60 +22,51 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
         audio: $scope.audioEffects.player2
     };
     $scope.currentPlayer = $scope.pl1;
-    $scope.rows = [1, 2, 3];
-    $scope.cols = $scope.rows;
-    $scope.board = {
-        '1': {'1': null, '2': null, '3': null},
-        '2': {'1': null, '2': null, '3': null},
-        '3': {'1': null, '2': null, '3': null}
-    };
+    $scope.rows = $scope.cols = [0, 1, 2];
+    $scope.board = [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
+    ];
+
 
     $scope.isWinner = function () {
         $scope.fullCellCount = 0;
         $scope.diagonalSumm = 0;
         $scope.diagonalSummReflect = 0;
-        $scope.countRowScore = {};
-        $scope.countColScore = {};
-        $scope.colScoreSumm = {};
+        $scope.countColScore = [0, 0, 0];
 
-        //loop for count row score
         for (var row in $scope.board) {
-            $scope.countColScore[row] = {};
-            $scope.countRowScore[row] = 0;
+            $scope.countRowScore = 0;
 
-            for (var col in $scope.board[row]) {
-                $scope.countColScore[row][col] = 0;
-
-                //check if player put value on game board
-                if ($scope.board[row][col] !== null  && $scope.board[row][col] === $scope.currentPlayer.simbol) {
-                    $scope.countRowScore[row] = +col + $scope.countRowScore[row];
-                    $scope.countColScore[row][col] = +col + $scope.countColScore[row][col];
+            $scope.board[row].forEach(function (col, colNumber, colArr) {
+                if (col === $scope.currentPlayer.simbol) {
+                    $scope.countRowScore++;
+                    $scope.countColScore[colNumber]++;
                 }
 
-                //if player have 6 score in row
-                if ($scope.countRowScore[row] === 6) {
-                    $scope.alertResult($scope.currentPlayer.simbol);
-                    return;
+                if (col === $scope.currentPlayer.simbol && colNumber === +row) {
+                    $scope.diagonalSumm++;
                 }
 
-                //if all cells is full
-                if ($scope.board[row][col] !== null) {
+                if (col === $scope.currentPlayer.simbol && colNumber === colArr.length - row - 1) {
+                    $scope.diagonalSummReflect++;
+                }
+
+                if (col !== null) {
                     $scope.fullCellCount++;
                 }
-            }
-        }
+            });
 
-        //count points in columns and diagonals
-        for (var row in $scope.countColScore) {
-            $scope.colScoreSumm[row] = 0;
-            $scope.diagonalSumm += $scope.countColScore[row][row];
-            $scope.diagonalSummReflect += $scope.countColScore[row][4-row];
-            for (var col in $scope.countColScore[row]) {
-                $scope.colScoreSumm[row] += $scope.countColScore[col][row];
-            }
+            //Array of all counted results
+            $scope.countResults = [$scope.countRowScore, $scope.diagonalSumm, $scope.diagonalSummReflect];
+            $scope.countResults = $scope.countResults.concat($scope.countColScore);
 
-            //check if player have
-            if ($scope.colScoreSumm[row] === row*3 || $scope.diagonalSumm === 6 || $scope.diagonalSummReflect === 6) {
+            $scope.allCountersCheck = $scope.countResults.some(function (counter) {
+                return counter === 3;
+            });
+
+            if ($scope.allCountersCheck) {
                 $scope.alertResult($scope.currentPlayer.simbol);
                 return;
             }
@@ -91,6 +80,7 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
         $scope.togglePlayer();
     };
 
+
     $scope.togglePlayer = function () {
         if ($scope.currentPlayer === $scope.pl1) {
             $scope.currentPlayer = $scope.pl2;
@@ -98,6 +88,7 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
             $scope.currentPlayer = $scope.pl1;
         }
     };
+
 
     $scope.alertResult = function (winner) {
         if (winner) {
@@ -109,10 +100,11 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
             swal('draws');
             $timeout(function () {
                 $scope.playSound($scope.audioEffects.draws);
-            }, 250);
+            }, 350);
         }
         $scope.clearBoard();
     };
+
 
     $scope.clearBoard = function () {
         $scope.fullCellCount = 0;
@@ -124,9 +116,11 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
         }
     };
 
+
     $scope.makeMute = function () {
         $scope.muteToggle = !$scope.muteToggle;
     };
+
 
     $scope.playSound = function (audioEffect) {
         $scope.currentAudio = new Audio(audioEffect);
