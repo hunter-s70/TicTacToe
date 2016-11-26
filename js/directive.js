@@ -25,6 +25,12 @@ app.directive('ticTac', function() {
                     scope.board[row][col] = value;
                 }
             };
+
+            scope.$watchCollection(scope.board, function () {
+//                if (scope.enabledComputer && scope.currentPlayer === scope.pl2) {
+//                    scope.makeStep(1, 2);
+//                }
+            });
         }
     }
 });
