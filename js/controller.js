@@ -127,4 +127,9 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
         $scope.currentAudio.muted = $scope.muteToggle;
         $scope.currentAudio.play();
     };
+
+
+    $scope.enableComputer = function() {
+        $scope.computerEnable = !$scope.computerEnable;
+    }
 });

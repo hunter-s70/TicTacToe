@@ -25,6 +25,19 @@ app.directive('ticTac', function() {
                     scope.board[row][col] = value;
                 }
             };
+
+            scope.makeStepComputer = function () {
+                if (scope.computerEnable) {
+                    //code for computer step
+                }
+            };
+
+            //add watchers for board rows
+            scope.board.forEach(function(row, i) {
+                scope.$watchCollection(function () {
+                    return scope.board[i];
+                }, scope.makeStepComputer);
+            });
         }
     }
 });
