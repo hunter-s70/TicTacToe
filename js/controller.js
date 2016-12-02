@@ -108,6 +108,7 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
 
     $scope.clearBoard = function () {
         $scope.fullCellCount = 0;
+        $scope.gameiInProcess = false;
         $scope.currentPlayer = $scope.pl1;
         for (var row in $scope.board) {
             for (var col in $scope.board[row]) {

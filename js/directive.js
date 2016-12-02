@@ -6,6 +6,7 @@ app.directive('ticTac', function() {
 
             scope.makeStep = function (row, col) {
                 if (scope.getCell(row, col)) return;
+                scope.gameiInProcess = true;
                 scope.setCell(row, col, scope.currentPlayer.simbol);
                 scope.playSound(scope.currentPlayer.audio);
                 scope.isWinner();

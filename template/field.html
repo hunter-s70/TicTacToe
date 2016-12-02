@@ -5,7 +5,7 @@
     <span ng-hide="muteToggle">mute off</span>
 </button>
 
-<button ng-click="enableComputer()">
+<button ng-click="enableComputer()" ng-if="!gameiInProcess">
     <span ng-show="computerEnable">computer on</span>
     <span ng-hide="computerEnable">computer off</span>
 </button>
