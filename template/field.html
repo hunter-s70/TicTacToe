@@ -1,14 +1,16 @@
-<button ng-click="clearBoard()">new game</button>
+<div class="b-btn-group">
+    <button ng-click="clearBoard()">new game</button>
 
-<button ng-click="makeMute()">
-    <span ng-show="muteToggle">mute on</span>
-    <span ng-hide="muteToggle">mute off</span>
-</button>
+    <button ng-click="makeMute()">
+        <span ng-show="muteToggle">mute on</span>
+        <span ng-hide="muteToggle">mute off</span>
+    </button>
 
-<button ng-click="enableComputer()" ng-if="!gameiInProcess">
-    <span ng-show="computerEnable">computer on</span>
-    <span ng-hide="computerEnable">computer off</span>
-</button>
+    <button ng-click="enableComputer()" ng-if="!gameiInProcess">
+        <span ng-show="computerEnable">computer on</span>
+        <span ng-hide="computerEnable">computer off</span>
+    </button>
+</div>
 
 <table class="b-field">
     <tr class="b-field__row" ng-repeat="row in rows">

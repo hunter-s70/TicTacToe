@@ -34,14 +34,14 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
         $scope.fullCellCount = 0;
         $scope.diagonalSumm = 0;
         $scope.diagonalSummReflect = 0;
+        $scope.countRowScore = [0, 0, 0];
         $scope.countColScore = [0, 0, 0];
 
         for (var row in $scope.board) {
-            $scope.countRowScore = 0;
 
             $scope.board[row].forEach(function (col, colNumber, colArr) {
                 if (col === $scope.currentPlayer.simbol) {
-                    $scope.countRowScore++;
+                    $scope.countRowScore[row]++;
                     $scope.countColScore[colNumber]++;
                 }
 
@@ -49,7 +49,7 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
                     $scope.diagonalSumm++;
                 }
 
-                if (col === $scope.currentPlayer.simbol && colNumber === colArr.length - row - 1) {
+                if (col === $scope.currentPlayer.simbol && colNumber === 2 - row) {
                     $scope.diagonalSummReflect++;
                 }
 
@@ -59,8 +59,8 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
             });
 
             //Array of all counted results
-            $scope.countResults = [$scope.countRowScore, $scope.diagonalSumm, $scope.diagonalSummReflect];
-            $scope.countResults = $scope.countResults.concat($scope.countColScore);
+            $scope.countResults = [$scope.diagonalSumm, $scope.diagonalSummReflect];
+            $scope.countResults = $scope.countResults.concat($scope.countColScore, $scope.countRowScore);
 
             $scope.allCountersCheck = $scope.countResults.some(function (counter) {
                 return counter === 3;
@@ -128,6 +128,7 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
         $scope.currentAudio.muted = $scope.muteToggle;
         $scope.currentAudio.play();
     };
+
 
     $scope.enableComputer = function() {
         $scope.computerEnable = !$scope.computerEnable;

@@ -32,10 +32,51 @@ app.directive('ticTac', function($timeout) {
                     $timeout(function() {
                         var row, col;
 
+                        console.log(scope.countResults);
+
+                        scope.allCountersCheck = scope.countResults.some(function (counter) {
+                            return counter === 2;
+                        });
+
                         do {
                             row = scope.makeRandom(0, 2);
                             col = scope.makeRandom(0, 2);
                         } while (scope.board[row][col] !== null);
+
+                        if (scope.allCountersCheck) {
+                            scope.countResults.forEach(function (item, i) {
+                                //for rows
+                                if (item === 2 && i > 4) {
+                                    do {
+                                        row = i - 5;
+                                        col = scope.makeRandom(0, 2);
+                                    } while (scope.board[row][col] === scope.pl1.simbol)
+                                }
+
+                                //for cols
+                                if (item === 2 && i > 1 && i < 5) {
+                                    do {
+                                        row = scope.makeRandom(0, 2);
+                                        col = i - 2;
+                                    } while (scope.board[row][col] === scope.pl1.simbol)
+                                }
+
+                                //for diagonal
+                                if (item === 2 && i === 0) {
+                                    do {
+                                        row = col = scope.makeRandom(0, 2);
+                                    } while (scope.board[row][col] === scope.pl1.simbol)
+                                }
+
+                                //for diagonal reflect
+                                if (item === 2 && i === 1) {
+                                    do {
+                                        row = scope.makeRandom(0, 2);
+                                        col = 2 - row;
+                                    } while (scope.board[row][col] === scope.pl1.simbol)
+                                }
+                            })
+                        }
 
                         scope.makeStep(row, col);
                     }, 500);
