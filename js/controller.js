@@ -129,7 +129,6 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
         $scope.currentAudio.play();
     };
 
-
     $scope.enableComputer = function() {
         $scope.computerEnable = !$scope.computerEnable;
     }

@@ -1,4 +1,4 @@
-app.directive('ticTac', function() {
+app.directive('ticTac', function($timeout) {
     return {
         restrict : "E",
         templateUrl : 'template/field.html',
@@ -28,9 +28,23 @@ app.directive('ticTac', function() {
             };
 
             scope.makeStepComputer = function () {
-                if (scope.computerEnable) {
-                    //code for computer step
+                if (scope.computerEnable && scope.currentPlayer === scope.pl2) {
+                    $timeout(function() {
+                        var row, col;
+
+                        do {
+                            row = scope.makeRandom(0, 2);
+                            col = scope.makeRandom(0, 2);
+                        } while (scope.board[row][col] !== null);
+
+                        scope.makeStep(row, col);
+                    }, 500);
                 }
+            };
+
+            scope.makeRandom = function (min, max) {
+                var rand = min - 0.5 + Math.random() * (max - min + 1);
+                return rand = Math.abs( Math.round(rand) );
             };
 
             //add watchers for board rows
