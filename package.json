@@ -4,10 +4,12 @@
   "description": "game",
   "main": "index.js",
   "dependencies": {
-    "angular": "^1.5.8"
+    "angular": "^1.5.8",
+    "sweetalert2": "*"
   },
   "devDependencies": {},
   "scripts": {
+    "start": "index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "hunter_s70",
