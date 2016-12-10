@@ -4,9 +4,11 @@
 var express = require("express");
 var app = express();
 app.use(express.logger());
+var path = require('path');
 
 app.get('/', function(request, response) {
-    response.send('Hello World!');
+    response.sendFile(path.join(__dirname + '/index.html'));
+//    response.send('Hello world');
 });
 
 var port = process.env.PORT || 5000;
