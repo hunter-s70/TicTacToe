@@ -15,11 +15,13 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
     };
     $scope.pl1 = {
         simbol: 'x',
-        audio: $scope.audioEffects.player1
+        audio: $scope.audioEffects.player1,
+        score: 0
     };
     $scope.pl2 = {
         simbol: 'o',
-        audio: $scope.audioEffects.player2
+        audio: $scope.audioEffects.player2,
+        score: 0
     };
     $scope.currentPlayer = $scope.pl1;
     $scope.rows = $scope.cols = [0, 1, 2];
@@ -39,7 +41,7 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
 
         for (var row in $scope.board) {
 
-            $scope.board[row].forEach(function (col, colNumber, colArr) {
+            $scope.board[row].forEach(function (col, colNumber) {
                 if (col === $scope.currentPlayer.simbol) {
                     $scope.countRowScore[row]++;
                     $scope.countColScore[colNumber]++;
@@ -65,6 +67,10 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
             $scope.allCountersCheck = $scope.countResults.some(function (counter) {
                 return counter === 3;
             });
+
+            if ($scope.currentPlayer === $scope.pl2) {
+                $scope.countComputerResults = $scope.countResults;
+            }
 
             if ($scope.allCountersCheck) {
                 $scope.alertResult($scope.currentPlayer.simbol);
@@ -92,6 +98,7 @@ app.controller('TicTacCtrl', function($scope, $timeout) {
 
     $scope.alertResult = function (winner) {
         if (winner) {
+            $scope.currentPlayer.score++;
             swal(winner.toUpperCase() + ' winner!');
             $timeout(function () {
                 $scope.playSound($scope.audioEffects.winner);

@@ -34,55 +34,60 @@ app.directive('ticTac', function($timeout) {
             scope.makeStepComputer = function () {
                 if (scope.computerEnable && scope.currentPlayer === scope.pl2) {
                     $timeout(function() {
-                        var row, col;
-
-                        console.log('countRes --> ' + scope.countResults);
-                        console.log('CPU__Res --> ' + scope.countComputerResults);
 
                         do {
-                            row = scope.makeRandom(0, 2);
-                            col = scope.makeRandom(0, 2);
-                        } while (scope.board[row][col] !== null);
+                            scope.stRow = scope.makeRandom(0, 2);
+                            scope.stCol = scope.makeRandom(0, 2);
+                        } while (scope.board[scope.stRow][scope.stCol] !== null);
 
-                        var allCountersCheck = scope.countResults.some(function (counter) {
-                            return counter === 2;
-                        });
+                        scope.finedFreeCell(scope.board, scope.countResults);
 
-                        if (allCountersCheck) {
-                            scope.countResults.forEach(function (item, i) {
+                        if (scope.countComputerResults) {
+                            var allComputerCountersCheck = scope.countComputerResults.some(function (counter) {
+                                return counter === 2;
+                            });
 
-                                for (var n = 0; n < 3; n++) {
-                                    if (item !== 2) return;
-
-                                    //for diagonal
-                                    if (i === 0 && scope.board[n][n] === null) {
-                                        row = col = n;
-                                    }
-
-                                    //for diagonal reflect
-                                    if (i === 1 && scope.board[n][2 - n] === null) {
-                                        row = n;
-                                        col = 2 - n;
-                                    }
-
-                                    //for cols
-                                    if (i > 1 && i < 5 && scope.board[n][i - 2] === null) {
-                                        row = n;
-                                        col = i - 2;
-                                    }
-
-                                    //for rows
-                                    if (i > 4 && scope.board[i - 5][n] === null) {
-                                        row = i - 5;
-                                        col = n;
-                                    }
-                                }
-                            })
+                            if (allComputerCountersCheck) {
+                                scope.finedFreeCell(scope.board, scope.countComputerResults);
+                            }
                         }
 
-                        scope.makeStep(row, col);
+                        scope.makeStep(scope.stRow, scope.stCol);
                     }, 500);
                 }
+            };
+
+
+            scope.finedFreeCell = function (board, fullCells) {
+                fullCells.forEach(function (item, i) {
+
+                    for (var n = 0; n < 3; n++) {
+                        if (item !== 2) return;
+
+                        //for diagonal
+                        if (i === 0 && board[n][n] === null) {
+                            scope.stRow = scope.stCol = n;
+                        }
+
+                        //for diagonal reflect
+                        if (i === 1 && board[n][2 - n] === null) {
+                            scope.stRow = n;
+                            scope.stCol = 2 - n;
+                        }
+
+                        //for scope.stCols
+                        if (i > 1 && i < 5 && board[n][i - 2] === null) {
+                            scope.stRow = n;
+                            scope.stCol = i - 2;
+                        }
+
+                        //for scope.stRows
+                        if (i > 4 && board[i - 5][n] === null) {
+                            scope.stRow = i - 5;
+                            scope.stCol = n;
+                        }
+                    }
+                });
             };
 
 
