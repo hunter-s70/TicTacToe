@@ -14,7 +14,7 @@
     },
     "devDependencies": {},
     "scripts": {
-        "start": "node index.js",
+        "start": "node index.html",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "hunter_s70",
