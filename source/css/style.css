@@ -111,6 +111,10 @@
         font-size: 2.4em;
     }
 
+    .b-field {
+        margin: 20px auto;
+    }
+
     .b-field__cell {
         width: 80px;
         height: 80px;
