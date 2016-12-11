@@ -10,14 +10,14 @@
     "dependencies": {
         "express": "3.1.x",
         "angular": "^1.5.8",
-        "sweetalert2": "*"
-    },
-    "devDependencies": {
+        "sweetalert2": "*",
         "gulp": "^3.9.1",
         "gulp-jsmin": "*",
         "gulp-concat": "*",
         "gulp-minify-css": "*",
         "gulp-minify-html": "*"
+    },
+    "devDependencies": {
     },
     "scripts": {
         "start": "node index.js",
