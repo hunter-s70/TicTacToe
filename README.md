@@ -13,6 +13,12 @@ git clone git@github.com:hunter-s70/TicTacToe.git
 ```bash
 npm install
 ```
+
+<strong>make:</strong>
+```bash
+gulp
+```
+
 <strong>Open in your browser:</strong>
 ```bash
 localhost:5000
