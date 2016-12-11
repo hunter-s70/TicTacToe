@@ -4,11 +4,12 @@
 var express = require("express");
 var app = express();
 app.use(express.logger());
-var path = require('path');
+
+app.use(express.static('web'));
+app.use(express.static('node_modules'));
 
 app.get('/', function(request, response) {
-    response.sendFile(path.join(__dirname + '/index.html'));
-//    response.send('Hello world');
+    response.send('Tic Tac Toe game');
 });
 
 var port = process.env.PORT || 5000;
