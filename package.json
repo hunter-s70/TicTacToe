@@ -12,7 +12,13 @@
         "angular": "^1.5.8",
         "sweetalert2": "*"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "gulp": "^3.9.1",
+        "gulp-jsmin": "*",
+        "gulp-concat": "*",
+        "gulp-minify-css": "*",
+        "gulp-minify-html": "*"
+    },
     "scripts": {
         "start": "node index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
