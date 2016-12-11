@@ -1,20 +1,21 @@
 .b-control-panel {
     padding: 0 35px;
     float: left;
+    font-size: 25px;
 }
 
 .b-score-table {
     color: #2E2E2E;
     text-align: justify;
-    font: 700 28px 'Marck Script', cursive;
+    font: 700 1.19em 'Marck Script', cursive;
 }
 
 .b-score-table__player {
-    font-size: 35px;
+    font-size: 1em;
 }
 
 .b-score-table__score {
-    width: 18px;
+    width: .6em;
     text-align: center;
     display: inline-block;
 }
@@ -31,7 +32,7 @@
     cursor: pointer;
     background: #3085d6;
     color: #fff;
-    font-size: 17px;
+    font-size: .65em;
     font-weight: 500;
     border: 0;
     border-radius: 3px;
@@ -83,4 +84,43 @@
 
 .b-field__cell:last-child {
     border-right: none;
+}
+
+/* -------- @media ----------------------------- */
+
+@media (max-width: 500px) {
+    .b-control-panel {
+        margin: 0 auto;
+        padding: 0 50px;
+        float: none;
+        font-size: 9px;
+    }
+
+    .b-score-table {
+        text-align: center;
+        font-size: 4em;
+    }
+
+    .b-score-table__player {
+        font-size: 1.4em;
+    }
+
+    .b-btn {
+        margin-bottom: 25px;
+        width: 100%;
+        font-size: 2.5em;
+    }
+
+    .b-field {
+        margin: 30px auto;
+    }
+
+    .b-field__cell {
+        width: 80px;
+        height: 80px;
+    }
+
+    .b-field__cell.ng-animate {
+        font-size: 80px;
+    }
 }
