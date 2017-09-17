@@ -17,11 +17,10 @@
         "gulp-minify-css": "*",
         "gulp-minify-html": "*"
     },
-    "devDependencies": {
-    },
+    "devDependencies": {},
     "scripts": {
         "start": "node index.js",
-        "postinstall" : "gulp build",
+        "postinstall": "gulp build",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "hunter_s70",
