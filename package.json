@@ -5,7 +5,7 @@
     "main": "index.js",
     "dependencies": {
         "express": "3.1.x",
-        "angular": "1.5.8",
+        "angular": "1.7.9",
         "sweetalert": "*",
         "gulp": "3.9.1",
         "gulp-jsmin": "*",
